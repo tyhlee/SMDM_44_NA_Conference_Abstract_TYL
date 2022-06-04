@@ -1,0 +1,62 @@
+---
+title: "Simulation study"
+author: "Tae Yoon Lee"
+date: "05/05/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(mvtnorm)
+library(tidyverse)
+library(here)
+source("mu_trunc_BVN_stable.R")
+```
+
+```{r, echo=FALSE}
+set.seed(2022)
+mu1s <- seq(-2,2,2)
+mu2s <- seq(-2,2,2)
+v1s <- c(1,3)
+v2s <- c(1,3)
+rhos <- seq(-0.75,0.75,by=0.25)
+variables <- expand.grid(mu1s,mu2s,v1s,v2s,rhos)
+
+mu_max_truncated_bvn_sim <- function(mu1,mu2,sig1sq,sig2sq,rho,n_sim=100000){
+  sigma <- rbind(
+  c(sig1sq, rho*sqrt(sig1sq*sig2sq)),
+  c(rho*sqrt(sig1sq*sig2sq),sig2sq)
+  )
+  dt <- rmvnorm(n_sim,c(mu1,mu2),sigma)
+  c(mean(apply(cbind(dt,0),1,max)),quantile(apply(cbind(dt,0),1,max),c(0.025,0.975)))
+}
+
+out <- lapply(1:nrow(variables),function(i){
+  c(mu_max_truncated_bvn(c(variables[i,1],variables[i,2]),
+                         matrix(c(variables[i,3],
+                                  variables[i,5]*sqrt(variables[i,3]*variables[i,4]),
+                                  variables[i,5]*sqrt(variables[i,3]*variables[i,4]),
+                                  variables[i,4]),nrow=2)),
+    mu_max_truncated_bvn_sim(variables[i,1],variables[i,2],variables[i,3],variables[i,4],variables[i,5]))
+})
+
+out <- do.call(rbind,out)
+```
+
+
+```{r}
+results <- cbind(variables,out)
+colnames(results) <- c("mu_1","mu_2","sig_1","sig_2","rho","exact","MC","MC_lower","MC_upper")
+results <- results %>% 
+  mutate(check = exact <=MC_upper & exact>=MC_lower,
+         SquaredError = (exact-MC)^2,
+         AbsoluteError = abs(exact-MC))
+MAE <- mean(results$AbsoluteError)
+RMSE <- sqrt(mean(results$SquaredError))
+sum(!results$check)
+write_csv(results %>% 
+            select(1:7),here('results',"sim_results.csv"))
+write_rds(results,here("results","sim_results.rds"))
+```
+
