@@ -55,8 +55,8 @@ results <- results %>%
 MAE <- mean(results$AbsoluteError)
 RMSE <- sqrt(mean(results$SquaredError))
 sum(!results$check)
-write_csv(results %>% 
-            select(1:7),here('results',"sim_results.csv"))
+write_csv(round(results %>% 
+            select(1:7),5),here('results',"sim_results.csv"))
 write_rds(results,here("results","sim_results.rds"))
 ```
 
