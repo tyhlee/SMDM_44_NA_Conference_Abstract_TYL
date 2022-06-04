@@ -1,9 +1,15 @@
-# SMDM 44th NA Conference - Closed-Form Solution of the Bivariate Unit Normal Loss Integral with Application to Value of Information Analysis
+# SMDM 44th NA Conference: Closed-Form Solution of the Bivariate Unit Normal Loss Integral with Application to Value of Information Analysis
 ## Authors: Tae Yoon Lee, Paul Gustafson, Mohsen Sadatsafavi
 
 The abstract can be be found here[TODO].
 
-Simulation study results are provided here:
+We present the code and results for the simulation study.
+
+252 bivariate distributions are constructed from the following combinations of the means ($\mu_1,\mu_2$), variances ($\sigma_1^2,\sigma_2^2$), and correlation coefficient ($\rho$):
+
+* $\mu_1,\mu_2$: [-2,0,2]
+* $\sigma_1^2,\sigma_1^2$: [1,3]
+* $\rho$: [-0.75,-0.50,...,0.50,0.75]
 
 | **$\mu_1$** | **$\mu_2$** | **$\sigma_1^2$** | **$\sigma_2^2$** | **$\rho$**   | **Closed-form Solution** | **Monte-Carlo Method**   |
 |------|------|-------|-------|-------|---------|--------------------|
@@ -67,7 +73,7 @@ Simulation study results are provided here:
 | -2   | 0    | 1     | 3     | -0.5  | 0.69907 | 0.6923             |
 | 0    | 0    | 1     | 3     | -0.5  | 1.02253 | 1.02586            |
 | 2    | 0    | 1     | 3     | -0.5  | 2.2707  | 2.27198            |
-| -2   | 2    | 1     | 3     | -0.5  | 2.11211 | 2.1064600000000002 |
+| -2   | 2    | 1     | 3     | -0.5  | 2.11211 | 2.10646 |
 | 0    | 2    | 1     | 3     | -0.5  | 2.27656 | 2.27149            |
 | 2    | 2    | 1     | 3     | -0.5  | 2.95515 | 2.94815            |
 | -2   | -2   | 3     | 3     | -0.5  | 0.21267 | 0.21381            |
@@ -256,6 +262,6 @@ Simulation study results are provided here:
 | -2   | 0    | 3     | 3     | 0.75  | 0.69815 | 0.70066            |
 | 0    | 0    | 3     | 3     | 0.75  | 0.93529 | 0.93377            |
 | 2    | 0    | 3     | 3     | 0.75  | 2.12571 | 2.12766            |
-| -2   | 2    | 3     | 3     | 0.75  | 2.10664 | 2.1058500000000002 |
+| -2   | 2    | 3     | 3     | 0.75  | 2.10664 | 2.10585 |
 | 0    | 2    | 3     | 3     | 0.75  | 2.12571 | 2.12205            |
 | 2    | 2    | 3     | 3     | 0.75  | 2.537   | 2.53707            |
