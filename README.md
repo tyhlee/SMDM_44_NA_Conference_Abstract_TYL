@@ -5,7 +5,9 @@ The abstract can be be found here[TODO].
 
 We present the code and results for the simulation study.
 
-252 bivariate distributions are constructed from the following combinations of the means ($\mu_1,\mu_2$), variances ($\sigma_1^2,\sigma_2^2$), and correlation coefficient ($\rho$):
+252 bivariate distributions are constructed from the following combinations of the means ($ \mu_1,\mu_2 $),
+variances ($ \sigma_1^2, \sigma_2^2 $), 
+and correlation coefficient ($\rho$):
 
 * $\mu_1,\mu_2$: [-2,0,2]
 * $\sigma_1^2,\sigma_1^2$: [1,3]
